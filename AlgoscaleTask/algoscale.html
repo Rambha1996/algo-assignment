@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>algoscale Assignment</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ 
+
+<!-- //internal css use in head part -->
+<style type="text/css">
+    h2{
+      font-family:inherit;
+      font-weight: bold;
+      font-style: italic;
+      font-color:green;
+      text-decoration: underline;
+      text-shadow: 2px solid;
+      text-align: center;
+      margin-top: 30px;
+    }
+.container{
+      background-color: skyblue;
+    }
+/*
+change dropdown select city color*/
+background-color:rgb(206, 146, 133); 
+background-color:rgb(42, 214, 108); 
+
+  
+  </style>
+<script type="text/javascript">
+$(function(){
+      $('#mySelect').on('change', function() {
+      var select = $('#mySelect').val();
+      console.log(select);
+        if(select=='Visa'){
+          $('.container').css('background-color', 'skyblue');
+        }else{
+          $('.container').css('background-color', '#ffff00');
+        }
+    });
+  });
+  // onselectchange method change the value if select the option elsewhere
+
+    function onSelectChange(val){
+      var element=document.getElementById('yourTextBox');
+      var othercity = $('#selectcity').val();
+       if(othercity=='ElseWhere')
+        element.style.display='block';
+         else  
+          element.style.display='none';
+};
+
+// id denerateid functon call after click generrateid buttion innerHtml change the value of input field
+
+function generateId()
+{
+var values = document.getElementById("generateid").innerHTML = '#AT' + Math.random().toString(36).substr(2, 15);
+$('#generateid').val(values);
+
+};
+
+// change color text background of select option
+
+//mobile no validation
+function check()
+{
+    var pass1 = document.getElementById('mobile'); 
+    var message = document.getElementById('message');
+
+    if(mobile.value.length!=10){
+        message.innerHTML = "required 10 digits, match requested format!"
+    }
+  }
+
+ // create onsubmit method to submit the form to serialiezeArray
+function on_submit(){
+  var id = $('#generateid').val();
+  var x = $("form").serializeArray();
+  console.log(x.length);
+  var interviews = []
+  $.each(x, function(i, field){
+      interviews.push(field.value);
+    });
+  localStorage.setItem(id,interviews);
+}
+</script> 
+
+</head>
+<body>
+    <!-- // use the bootstarp class/grid/class-size/bitton --> 
+<div class="container">
+  <div class="row">
+    <div class="col-md-12"">
+      <h2>AlGOSCALE ASSIGNMENT</h2>  <hr>
+      <a href="viewlist.html" class="btn btn-primary btn-md" role="button" style="float:right;">View Interview List</a>
+    </div>
+  </div>
+<!--   action="/action_page.php" -->
+  <form class="form-horizontal"  method="post">
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="interviewpurpose">Interview Purpose:</label>
+      <div class="col-sm-6">
+        <select name="Interviewpurpose" class="form-control" id="mySelect" placeholder="Select Interview Purpose" required>
+          <option selected value="Visa">Visa</option>
+          <option value="Permanent_Residence">Permanent Residence</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="interviewpurpose">City:</label>
+      <div class="col-sm-6">
+        <!-- //use the selext attribute for select one of many option -->
+        <select name="City" class="form-control" placeholder="Select City" id="selectcity" required onchange="onSelectChange(this.value);">
+          <option selected="">Select City</option>
+          <option >London</option>
+          <option >Brighton</option>
+          <option >Belfast</option>
+          <option >Carediff</option>
+          <option >NewCastle</option>
+          <option >ElseWhere  </option>       
+        </select>
+        <input type="text" id="yourTextBox" placeholder="Enter City..." name="tbox" style='display: none;'/>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="pwd">Address:</label>
+      <div class="col-sm-6">          
+        <textarea rows="4"class="form-control" name="address" placeholder="Write address" required="textarea"></textarea>
+      </div>
+    </div>
+     <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="interview">Interviewer:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="interview" placeholder="Enter Candiate Name" name="interview" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="email"> Interviewees Email:</label>
+      <div class="col-sm-6">
+        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required="email">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="phoneno"> Interviewees Phone No:</label>
+      <div class="col-sm-6">
+        <input type="number" class="form-control" id="mobile"placeholder="Enter Phone Number" name="mobile" required onkeyup="check(); return false;" ><span id="message"></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="date">Date:</label>
+      <div class="col-sm-6">
+        <input type="Date" class="form-control" id="datepicker" placeholder="Choose Date" name="datepicker" required=>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2 col-sm-offset-2" for="uniqueid">Unique Interview Id:</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="generateid" placeholder="Generate Id" name="generateid">  
+      </div>
+      <div class="col-sm-offset-right-2">
+      </div>
+  <!--     // call the function click on the generate id button -->
+         <button  type="button" onclick = "generateId();" id="generate" class="btn btn-primary btn-md" style="float:center">Generate Id</button>
+    </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-6 col-sm-2">
+        <button type="submit" onclick="on_submit();" class="btn btn-default btn-lg">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+</body>
+</html>
+ 

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>view interview detail</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!--    //internal css use for styling the tag -->
+<style type="text/css">
+    h2{
+      font-family:inherit;
+      font-weight: bold;
+      font-style: italic;
+      font-color:green;
+      text-decoration: underline;
+      text-shadow: 2px solid;
+      text-align: center;
+      margin-top: 30px;
+    }
+</style>
+</head>
+<body> 
+<!-- 	// use the bootstarp class/grid/class-size/bitton  -->
+<div class="container" style="background: skyblue">
+	<h2> Interview Detail List</h2>
+	<hr>
+<form class="form-horizontal"  method="post" >
+    <div class="row">
+		<div class=" col-md-offset-6" style="float: left; margin-bottom: 30px">
+			<select id="interview_id" class="form-control" >
+			  <option>Select interview id</option>
+			</select>
+		</div>
+	</div>
+<div class="row" style="border:2px solid red">	
+<div class="col-md-offset-2">
+ <div class="form-group">
+      <label class="control-label col-sm-4 " for="interviewpurpose">Interview Purpose:</label>
+      <div class="col-md-offset-5">
+      <p  id="intpur"> </p>
+    </div>
+ </div>
+<div class="form-group">
+      <label class="control-label col-sm-4 " for="interviewpurpose">City:</label>
+      <div class="col-md-offset-5">
+      <p id="city"></p>
+    </div>
+</div>
+<div class="form-group">
+      <label class="control-label col-sm-4 " for="interviewpurpose">Address:</label>
+      <div class="col-md-offset-5">
+      <p id="address"></p>
+    </div>
+</div>
+    <div class="form-group">
+      <label class="control-label col-sm-4 " for="interviewpurpose">Interviewer:</label>
+      <div class="col-md-offset-5">
+      <p id="Interviewer"></p>
+    </div>
+</div>
+    <div class="form-group">
+      <label class="control-label col-sm-4 " for="interviewpurpose">Interviewees:</label>
+      <div class="col-md-offset-5">
+      <p id="Interviewees"></p>
+    </div>
+</div>
+    <div class="form-group">
+      <label class="control-label col-sm-4 " for="interviewpurpose">InterViewees Phone No:</label>
+      <div class="col-md-offset-5">
+       <p id="Phone"></p>
+    </div>
+</div>
+    <div class="form-group">
+      <label class="control-label col-sm-4 " for="interviewpurpose">Date:</label>
+      <div class="col-md-offset-5">
+      <p id="Date"></p>
+    </div>
+</div>
+  <div class="form-group">
+      <label class="control-label col-sm-4 " for="interviewpurpose">Unique Interview ID:</label>
+      <div class="col-md-offset-5">
+      <p id="Uniqueid"></p>
+  </div>
+  </div>
+  <div class="form-group">        
+      <div class=" col-sm-2">
+        <a href="algoscale.html" class="btn btn-primary btn-md" role="button" style="float:left;">Back</a>
+      </div>
+    </div>
+</div>
+</form>
+</div>
+
+</div>
+<script>
+	$( document ).ready(function() {
+        keys = Object.keys(localStorage),
+        i = keys.length;
+        var keys = []
+        var ids = []
+    	for(var i=0, len=localStorage.length; i<len; i++) {
+    		var id = localStorage.key(i);
+    		var data = localStorage[id].split(',');
+    		ids.push(id);
+    		keys.push({
+    			key: id,
+    			value: data
+    		});
+    	}
+		console.log(keys);
+	var elm = document.getElementById('interview_id'),
+        df = document.createDocumentFragment();
+    for (var i = 0; i < ids.length; i++) {
+        var option = document.createElement('option');
+        option.value = ids[i];
+        option.appendChild(document.createTextNode(ids[i]));
+        df.appendChild(option);
+        console.log(keys[i].value[0]);  
+    }
+    elm.appendChild(df);
+    $('select').on('change', function() {
+    	var select_value = $('#interview_id').val();
+        console.log(select_value);
+        for(var i=0; i<ids.length; i++){
+	        if(ids[i]==select_value){
+	        	$( "#intpur" ).html(keys[i].value[0]);
+	        	if(keys[i].value[2]==null || keys[i].value[2]==''){
+	        		$( "#city" ).html(keys[i].value[1]);
+	        	}else
+	        		$( "#city" ).html(keys[i].value[2]);
+	        	$( "#address" ).html(keys[i].value[3]);
+
+	        	if(keys[i].value[4].length > 12){
+	        		var strname = keys[i].value[4];
+	        		$( "#Interviewer" ).html(strname.substr(0,strname.indexOf(' ')+2));
+	        	}else{
+	        		$( "#Interviewer" ).html(keys[i].value[4]);
+	        	}
+
+	        	$( "#Interviewees" ).html(keys[i].value[5]);
+	        	$( "#Phone" ).html(keys[i].value[6]);
+	        	$( "#Date" ).html(keys[i].value[7]);
+	        	$( "#Uniqueid" ).html(keys[i].value[8]);
+       		}
+        }
+    });
+            
+});
+
+
+
+</script>
+</body>
+</html>
